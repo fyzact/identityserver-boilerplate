@@ -21,7 +21,11 @@ namespace IdentityServerBoilerplate.OAuth
                 .AddDeveloperSigningCredential()
                 .AddTestUsers(Config.Users().ToList())
                 .AddInMemoryClients(Config.Clients())
-                .AddInMemoryApiResources(Config.ApiResources());
+                .AddInMemoryApiResources(Config.ApiResources())
+                //.AddInMemoryIdentityResources(Config.IdentityResources)
+                .AddInMemoryApiScopes(Config.ApiScopes);
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -34,6 +38,7 @@ namespace IdentityServerBoilerplate.OAuth
             }
 
             app.UseRouting();
+            app.UseIdentityServer();
 
             app.UseEndpoints(endpoints =>
             {
@@ -43,7 +48,7 @@ namespace IdentityServerBoilerplate.OAuth
                 });
             });
 
-            app.UseIdentityServer();
+
         }
     }
 }

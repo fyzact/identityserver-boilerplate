@@ -13,7 +13,7 @@ namespace IdentityServerBoilerplate.OAuth.Configurations
         {
             return new[]
             {
-                new ApiResource("boilerplate","Identity server boiler plate")
+                new ApiResource("boilerplate", "Identity server boiler plate")
             };
         }
 
@@ -27,24 +27,43 @@ namespace IdentityServerBoilerplate.OAuth.Configurations
                     ClientId="boilerplate",
                     ClientSecrets=new []{new Secret( "boilersecret".Sha256())},
                     AllowedGrantTypes=GrantTypes.ResourceOwnerPasswordAndClientCredentials,
-                    AllowedScopes=new []{ "boilerplate" }
+                    AllowedScopes=new []{ "api" }
                 }
             };
 
         }
 
-       public static IEnumerable<TestUser> Users()
+        public static IEnumerable<TestUser> Users()
         {
             return new TestUser[]
             {
                 new TestUser
                 {
                     SubjectId="1",
-                    Username="boilerplate",
-                    Password="test"
+                    Username="feyyaz",
+                    Password="password"
                 }
             };
         }
 
+        //public static IEnumerable<IdentityResource> IdentityResources =>
+        //    new[]
+        //    {
+        //        new IdentityResources.OpenId(),
+        //        new IdentityResources.Profile(),
+        //        new IdentityResource
+        //        {
+        //          Name = "role",
+        //          UserClaims = new List<string> {"role"}
+        //        }
+        //    };
+
+
+        public static IEnumerable<ApiScope> ApiScopes =>
+          new[]
+          {
+        new ApiScope("api"),
+        new ApiScope("web"),
+          };
     }
 }
