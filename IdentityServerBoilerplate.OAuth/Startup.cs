@@ -7,6 +7,7 @@ using Microsoft.Extensions.Hosting;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 
 namespace IdentityServerBoilerplate.OAuth
@@ -18,10 +19,10 @@ namespace IdentityServerBoilerplate.OAuth
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddIdentityServer()
-                .AddDeveloperSigningCredential()
                 .AddTestUsers(Config.Users().ToList())
                 .AddInMemoryClients(Config.Clients())
                 .AddInMemoryApiResources(Config.ApiResources())
+                .AddSigningCredential(new X509Certificate2(@"C:\Users\facet\source\repos\IdentityServerBoilerplate\identityboilerplate.pfx", "123456"))
                 //.AddInMemoryIdentityResources(Config.IdentityResources)
                 .AddInMemoryApiScopes(Config.ApiScopes);
 
@@ -39,6 +40,7 @@ namespace IdentityServerBoilerplate.OAuth
 
             app.UseRouting();
             app.UseIdentityServer();
+            app.UseStaticFiles();
 
             app.UseEndpoints(endpoints =>
             {
